@@ -10,6 +10,7 @@
 				<c:when test="${!empty observations}">
 					<table class="table table-striped table-hover">
 						<tr>
+							<th>Name</th>
 							<th>Observed By</th>
 							<th>Observed Property</th>
 							<th>Observed Value</th>
@@ -19,6 +20,7 @@
 						
 						<c:forEach var="observation" items="${observations}">
 							<tr>
+								<td>${observation.name}
 								<td>${observation.observedBy}</td>
 								<td>${observation.observedProperty}</td>
 								<td>${observation.value}</td>

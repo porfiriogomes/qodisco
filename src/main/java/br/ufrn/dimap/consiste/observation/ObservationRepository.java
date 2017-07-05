@@ -34,11 +34,11 @@ public class ObservationRepository extends FusekiRepository {
 		StringBuilder sb = this.getPrefixes();
 		sb.append(" SELECT ?observation ?observedProperty ?date ?observedBy ?criterion ?qocValue ?value WHERE {");
 		sb.append(" ?observation a ssn:Observation ;");
-		sb.append(" ssn:observationResultTime ?date ;");
-		sb.append(" ssn:observedBy ?observedBy ;");
-		sb.append(" ssn:observedProperty ?observedProperty ;");
-		sb.append(" ssn:observationResult ?observationResult .");
+		sb.append(" OPTIONAL { ssn:observation ssn:observationResultTime ?date . }");
+		sb.append(" OPTIONAL { ssn:observation ssn:observedBy ?observedBy . }");
+		sb.append(" OPTIONAL { ssn:observation ssn:observedProperty ?observedProperty . }");
 		
+		sb.append(" OPTIONAL { ssn:observation ssn:observationResult ?observationResult .");
 		sb.append(" ?observationResult a ssn:SensorOutput ;");
 		sb.append(" qodisco:has_qoc ?qocIndicator ;");
 		sb.append(" ssn:hasValue ?observationValue .");
@@ -48,8 +48,8 @@ public class ObservationRepository extends FusekiRepository {
 		sb.append(" qodisco:has_qoc_value ?qocValue .");
 		
 		sb.append(" ?observationValue a ssn:ObservationValue ;");
-		sb.append(" ssn:hasQuantityValue ?value . ");
-		
+		sb.append(" ssn:hasQuantityValue ?value . }");	
+	
 		if(!observationSearch.getQoCCriterion().equals("None") && observationSearch.getQoCValue()!=null)
 			sb.append(String.format(" FILTER (?criterion = <%s> && ?qocValue %s %s)",
 					observationSearch.getQoCCriterion(),
@@ -70,13 +70,25 @@ public class ObservationRepository extends FusekiRepository {
 			QuerySolution qs = resultSet.next();
 			ObservationEntity observation = new ObservationEntity();
 			observation.setName(qs.get("observation").asNode().getLocalName());
-			observation.setObservedProperty(qs.get("observedProperty").asNode().getLocalName());
-			observation.setDate(qs.get("date").toString());
-			observation.setObservedBy(qs.get("observedBy").asNode().getLocalName());
-			observation.setCriterion(qs.get("criterion").asNode().getLocalName());
-			String qocValue = qs.get("qocValue").toString();
-			observation.setQoCValue(qocValue.substring(0, qocValue.indexOf("^")));
-			observation.setValue(qs.get("value").asLiteral().getString());
+			
+			if (qs.get("observedProperty") != null)
+				observation.setObservedProperty(qs.get("observedProperty").asNode().getLocalName());
+			
+			if (qs.get("date") != null)
+				observation.setDate(qs.get("date").toString());
+			
+			if (qs.get("observedBy") != null)
+				observation.setObservedBy(qs.get("observedBy").asNode().getLocalName());
+			
+			if (qs.get("criterion") != null) {
+				observation.setCriterion(qs.get("criterion").asNode().getLocalName());
+				String qocValue = qs.get("qocValue").toString();
+				observation.setQoCValue(qocValue.substring(0, qocValue.indexOf("^")));
+			}
+			
+			if (qs.get("value") != null) {				
+				observation.setValue(qs.get("value").asLiteral().getString());
+			}
 		
 			observations.add(observation);
 		}

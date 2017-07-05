@@ -20,7 +20,7 @@
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="${path}">Dashboard</a></li>
-				<li><a href="documentation.html">Documentation</a></li>
+				<li><a href="http://consiste.dimap.ufrn.br/projects/qodisco">Documentation</a></li>
 			</ul>
 			<sec:authorize access="!isAuthenticated()">
 				<ul class="nav navbar-nav navbar-right">
