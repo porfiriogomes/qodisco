@@ -1,0 +1,149 @@
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 40px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.navbar-default {
+  background-color: #3c8dbc;
+  border-color: #3c8dbc
+}
+
+.navbar-default .navbar-nav>li>a{
+	font-weight: 700 !important;
+  	font-family: 'Roboto', sans-serif;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+  background-color: #3379a1 !important;
+  border-color: #3379a1;
+}
+
+.col-no-padding {
+  padding: 0px !important;
+}
+
+.logo img {
+  width: 18px;
+  float: left;
+  margin-right: 7px;
+  margin-top: 0px;
+}
+
+.logo span {
+  color: #fff;
+}
+
+.logo span strong {
+   font-family: 'Roboto', sans-serif;
+  font-weight: 700;	
+}
+
+.navbar-default .navbar-collapse .navbar-nav li a {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.navbar-default .navbar-collapse .navbar-nav li.active a {
+  color: #fff;
+  font-weight: 400;
+}
+
+.main-color-bg {
+  background-color: #3c8dbc !important;
+  border-color: #3c8dbc !important;
+  color: #fff;
+}
+
+.list-group .list-group-item span {
+  margin-right: 8px;
+}
+
+/* Sidebar styles */
+#accordion .panel-default {
+  margin-top: 0px !important;
+}
+
+#accordion .panel-default {
+   font-size: 14px;
+   font-family: 'Roboto', sans-serif;
+}
+
+#accordion .panel-default .panel-heading .panel-title a {
+   font-size: 14px;
+   font-family: 'Roboto', sans-serif;
+}
+
+#accordion .panel-default .panel-heading .panel-title a span {
+  margin-right: 7px;
+}
+
+#accordion .panel-default .panel-collapse ul li {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+#accordion .panel-default .panel-collapse ul li a {
+  color: #3c8dbc;
+}
+
+.panel-default .panel-body p {
+  font-size: 14px;
+}
+
+.panel-default .panel-heading h2 {
+  font-size: 18px;
+}
+
+/* end Sidebar styles */
+
+#footer {
+  position: absolute;
+  max-width: 100%;
+  left: 0; right: 0; bottom: 0;
+  height: 50px;
+  background-color: #3c8dbc;
+  color: #fff;
+  padding: 17px;
+  line-height: 17px;
+}
+
+.panel-title {
+	font-weight: 400;
+}
+
+.btn {
+	font-weight: 700;
+}
+
+.btn-sm, .btn-group-sm>.btn {
+    padding: 2px 10px;
+    font-size: 13px;
+    line-height: 1.2;
+    border-radius: 0;
+}
+    
+label {
+	font-size: 14px;
+	font-weight: 400;
+}
+
+.input-group .input-group-addon span.fa {
+  width: 15px;
+}
+
+.input-group .input-group-addon {
+  background-color: #fcfcfc;
+}
+
+select {
+  appearance: none;
+}
+
+.panel-footer {
+  margin: 0;
+}

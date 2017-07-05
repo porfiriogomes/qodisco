@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="qodisco.base" template="/WEB-INF/templates/default.jsp">
+		<put-attribute name="title" value="QoDisco"/>
+		<put-attribute name="header" value="/WEB-INF/tiles/base/header.jsp"/>
+		<put-attribute name="sidebar" value="/WEB-INF/tiles/base/sidebar.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/base/index.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/tiles/base/footer.jsp"/>
+		
+		<put-attribute name="useractive" value="" cascade="true"/>
+		<put-attribute name="resourceactive" value="" cascade="true"/>
+		<put-attribute name="domainactive" value="" cascade="true"/>
+		<put-attribute name="repositoryactive" value="" cascade="true"/>
+		<put-attribute name="qocactive" value="" cascade="true"/>
+		<put-attribute name="locationactive" value="" cascade="true"/>
+		<put-attribute name="serviceactive" value="" cascade="true"/>
+		<put-attribute name="observationactive" value="" cascade="true"/>
+		<put-attribute name="sparqlactive" value="" cascade="true"/>
+		
+		<put-list-attribute name="scripts">
+			<add-attribute value="/static/vendors/js/bootstrap.min.js"/>
+		</put-list-attribute>
+		
+	</definition>
+	
+	<!-- Base Pages -->
+	<definition name="base.index" extends="qodisco.base">
+		<put-attribute name="title" value="QoDisco Homepage"/>
+	</definition>
+	<!-- End of Base Pages -->
+
+	<!-- User Pages -->
+	<definition name="user.signin" extends="qodisco.base">
+		<put-attribute name="title" value="Sign In"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/signin.jsp"/>
+		<put-attribute name="useractive" value="in" cascade="true"/>
+	</definition>
+	<definition name="user.new" extends="qodisco.base">
+		<put-attribute name="title" value="Sign Up"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/user/new.jsp"/>
+		<put-attribute name="useractive" value="in" cascade="true"/>
+	</definition>
+	<!-- End of User Pages -->
+	
+	<!-- Domain Pages -->
+	<definition name="domain.new" extends="qodisco.base">
+		<put-attribute name="title" value="New Domain"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/domain/new.jsp"/>
+		<put-attribute name="domainactive" value="in" cascade="true"/>
+	</definition>
+	<definition name="domain.list" extends="qodisco.base">
+		<put-attribute name="title" value="List of Domains"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/domain/list.jsp"/>
+		<put-attribute name="domainactive" value="in" cascade="true"/>
+	</definition>
+	<!-- End of Domain Pages -->
+	
+	<!-- Repository Pages -->
+	<definition name="repository.new" extends="qodisco.base">
+		<put-attribute name="title" value="New Repository"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/repository/new.jsp"/>
+		<put-attribute name="repositoryactive" value="in" cascade="true"/>
+	</definition>
+	<definition name="repository.list" extends="qodisco.base">
+		<put-attribute name="title" value="List of Repositories"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/repository/list.jsp"/>
+		<put-attribute name="repositoryactive" value="in" cascade="true"/>
+	</definition>
+	
+	<!-- End of Repository Pages -->
+	
+	<!-- Location Pages -->
+	<definition name="location.new" extends="qodisco.base">
+		<put-attribute name="title" value="New Location"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/location/new.jsp"/>
+		<put-attribute name="locationactive" value="in" cascade="true"/>
+	</definition>
+	<definition name="location.list" extends="qodisco.base">
+		<put-attribute name="title" value="List of Locations"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/location/list.jsp"/>
+		<put-attribute name="locationactive" value="in" cascade="true"/>
+	</definition>
+	
+	<!-- Location Pages: partials -->
+	<definition name="location.partials.new" template="/WEB-INF/tiles/location/partials/new-partial.jsp">
+	</definition>
+	<definition name="location.partials.list" template="/WEB-INF/tiles/location/partials/list-partial.jsp">
+	</definition>
+	
+	<!-- End of Location Pages -->
+	
+	
+	<!-- Resource Pages -->
+	<definition name="resource.new" extends="qodisco.base">
+		<put-attribute name="title" value="New Location"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/resource/new.jsp"/>
+		<put-attribute name="resourceactive" value="in" cascade="true"/>
+	</definition>
+	<definition name="resource.search" extends="qodisco.base">
+		<put-attribute name="title" value="Search for Resources"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/resource/search.jsp"/>
+		<put-attribute name="resourceactive" value="in" cascade="true"/>
+	</definition>
+	<definition name="resource.results" extends="qodisco.base">
+		<put-attribute name="title" value="Search Result"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/resource/results.jsp"/>
+		<put-attribute name="resourceactive" value="in" cascade="true"/>
+	</definition>
+	
+	<!-- Resource Pages: partials -->
+	<definition name="resource.partials.new" template="/WEB-INF/tiles/resource/partials/new-partial.jsp">
+	</definition>
+	<definition name="resource.partials.new.properties" template="/WEB-INF/tiles/resource/partials/new-properties-partial.jsp">
+	</definition>
+	<definition name="resource.partials.search" template="/WEB-INF/tiles/resource/partials/search-partial.jsp">
+	</definition>
+	
+	<!-- End of Resource Pages -->
+	
+	
+	<!-- QoC Pages -->
+	<definition name="qoc.new" extends="qodisco.base">
+		<put-attribute name="title" value="New QoC Criterion"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/qoc/new.jsp"/>
+		<put-attribute name="qocactive" value="in" cascade="true"/>
+	</definition>
+	<definition name="qoc.list" extends="qodisco.base">
+		<put-attribute name="title" value="List of QoC Criteria"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/qoc/list.jsp"/>
+		<put-attribute name="qocactive" value="in" cascade="true"/>
+	</definition>
+	<definition name="qoc.show" extends="qodisco.base">
+		<put-attribute name="title" value="QoC Criterion"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/qoc/show.jsp"/>
+		<put-attribute name="qocactive" value="in" cascade="true"/>
+	</definition>
+	
+	<!-- QoC Pages: partials -->
+	<definition name="qoc.partials.new" template="/WEB-INF/tiles/qoc/partials/new-partial.jsp">
+	</definition>
+	<definition name="qoc.partials.list" template="/WEB-INF/tiles/qoc/partials/list-partial.jsp">
+	</definition>
+	
+	<!-- End of QoC Pages -->
+	
+	
+	<!-- Service Pages -->
+	<definition name="service.new" extends="qodisco.base">
+		<put-attribute name="title" value="New Service"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/service/new.jsp"/>
+		<put-attribute name="serviceactive" value="in" cascade="true"/>
+	</definition>
+	<definition name="service.search" extends="qodisco.base">
+		<put-attribute name="title" value="Search for Services"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/service/search.jsp"/>
+		<put-attribute name="serviceactive" value="in" cascade="true"/>
+	</definition>
+	<definition name="service.results" extends="qodisco.base">
+		<put-attribute name="title" value="Search Result"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/service/results.jsp"/>
+		<put-attribute name="serviceactive" value="in" cascade="true"/>
+	</definition>
+	
+	<!-- Service Pages: partials -->
+	<definition name="service.partials.new" template="/WEB-INF/tiles/service/partials/new-partial.jsp">
+	</definition>
+	<definition name="service.partials.search" template="/WEB-INF/tiles/service/partials/search-partial.jsp">
+	</definition>
+	<definition name="service.partials.new.input" template="/WEB-INF/tiles/service/partials/new-input-partial.jsp">
+	</definition>
+	<definition name="service.partials.new.output" template="/WEB-INF/tiles/service/partials/new-output-partial.jsp">
+	</definition>
+	<!-- End of Service Pages -->
+	
+	<!-- Observation Pages -->
+	<definition name="observation.search" extends="qodisco.base">
+		<put-attribute name="title" value="Search for Observations"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/observation/search.jsp"/>
+		<put-attribute name="observationactive" value="in" cascade="true"/>
+	</definition>
+	<definition name="observation.results" extends="qodisco.base">
+		<put-attribute name="title" value="Search Result"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/observation/results.jsp"/>
+		<put-attribute name="observationactive" value="in" cascade="true"/>
+	</definition>
+	
+	<!-- Observation Pages: partials -->
+	<definition name="observation.partials.search" template="/WEB-INF/tiles/observation/partials/search-partial.jsp">
+	</definition>
+	<!-- End of Observation Pages -->
+	
+	
+	<!-- Sparql pages -->
+	<definition name="sparql.search" extends="qodisco.base">
+		<put-attribute name="title" value="Search by Query"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/sparql/search.jsp"/>
+		<put-attribute name="sparqlactive" value="in" cascade="true"/>
+	</definition>
+	<definition name="sparql.list" extends="qodisco.base">
+		<put-attribute name="title" value="Search Result"/>
+		<put-attribute name="content" value="/WEB-INF/tiles/sparql/results.jsp"/>
+		<put-attribute name="sparqlactive" value="in" cascade="true"/>
+	</definition>
+	
+</tiles-definitions>
