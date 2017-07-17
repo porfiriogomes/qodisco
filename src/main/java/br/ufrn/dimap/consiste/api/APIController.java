@@ -1,9 +1,7 @@
 package br.ufrn.dimap.consiste.api;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -95,11 +93,9 @@ public class APIController {
 	public ResponseEntity<TopicEntity> asynchronousSearch(@RequestHeader("query") String query, @RequestParam("domain") String domain) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss.SSS");
-		Date date = new Date();
 		
 		// Creating an unique topic name
-		String topicName = "qodisco"+auth.getName()+dateFormat.format(date);
+		String topicName = "qodisco"+auth.getName()+UUID.randomUUID();
 				
 		TopicEntity topic = apiService.asyncSearch(query, topicName, domain);
 		return new ResponseEntity<TopicEntity>(topic, HttpStatus.OK);

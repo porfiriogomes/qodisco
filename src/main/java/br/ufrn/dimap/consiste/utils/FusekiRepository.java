@@ -63,11 +63,6 @@ public abstract class FusekiRepository {
 	}
 	
 	public void updateRequest(String url, String query, String domainName) {
-		UpdateRequest updateRequest = UpdateFactory.create(query);
-		
-		UpdateProcessor proc = UpdateExecutionFactory.createRemote(updateRequest, url + "/update");
-		proc.execute();
-		
 		List<TopicEntity> topics = topicService.getTopicsByDomain(domainName);
 		
 		// Verify if some of the topic queries are satisfied by the new record		
@@ -91,6 +86,11 @@ public abstract class FusekiRepository {
 			}
 		}
 		
+		UpdateRequest updateRequest = UpdateFactory.create(query);
+		
+		UpdateProcessor proc = UpdateExecutionFactory.createRemote(updateRequest, url + "/update");
+		proc.execute();
+				
 	}
 	
 	protected List<String> getOne(String query, String url, String variableName){

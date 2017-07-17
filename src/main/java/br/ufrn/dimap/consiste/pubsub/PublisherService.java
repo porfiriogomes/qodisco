@@ -24,12 +24,11 @@ public class PublisherService {
 			
 			String serverPort = environment.getProperty("broker.server_port");
 			String host = environment.getProperty("broker.host");
-			String clientId = environment.getProperty("broker.publisher.client_id");
 			Integer qos = Integer.valueOf(environment.getProperty("broker.publisher.qos"));
 			
 			String brokerAddress = String.format("tcp://%s:%s", host, serverPort);
 			
-			MqttClient publisher = new MqttClient(brokerAddress, clientId, new MemoryPersistence());
+			MqttClient publisher = new MqttClient(brokerAddress, MqttClient.generateClientId(), new MemoryPersistence());
 			MqttConnectOptions connOpts = new MqttConnectOptions();
 			connOpts.setCleanSession(true);
 			publisher.connect(connOpts);
