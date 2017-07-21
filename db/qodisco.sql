@@ -159,6 +159,7 @@ CREATE TABLE `tb_topic` (
   `query` longtext NOT NULL,
   `domain_name` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `async_filter` longtext,
   PRIMARY KEY (`topic`),
   KEY `FK716r376n7414xhi8cgjuetbj7` (`domain_name`),
   KEY `FK8shpfvcedp3aeyulrui83pjc0` (`user_id`),
@@ -245,6 +246,6 @@ UNLOCK TABLES;
 --
 -- Creating user
 --
-CREATE USER `qodisco`@`localhost` IDENTIFIED BY 'qodisco';
+CREATE USER IF NOT EXISTS `qodisco`@`localhost` IDENTIFIED BY 'qodisco' ;
 GRANT ALL PRIVILEGES ON qodisco.* TO `qodisco`@`localhost`;
 FLUSH PRIVILEGES;

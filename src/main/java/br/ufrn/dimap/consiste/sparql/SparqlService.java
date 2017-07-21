@@ -15,6 +15,7 @@ import com.hp.hpl.jena.sparql.util.ResultSetUtils;
 import br.ufrn.dimap.consiste.domain.DomainService;
 import br.ufrn.dimap.consiste.repository.RepositoryEntity;
 import br.ufrn.dimap.consiste.repository.RepositoryService;
+import br.ufrn.dimap.consiste.utils.FusekiRepository;
 
 @Service
 public class SparqlService {
@@ -26,7 +27,7 @@ public class SparqlService {
 	private RepositoryService repositoryService;
 
 	@Autowired
-	private SparqlRepository sparqlRepository;
+	private FusekiRepository sparqlRepository;
 
 	public List<String> getDomainNames() {
 		return domainService.getDomainNames();
@@ -40,6 +41,7 @@ public class SparqlService {
 		if(repositories.size()>0){
 			for(RepositoryEntity repo : repositories){
 				Future<ResultSet> futureResult = sparqlRepository.search(repo.getUrl(), query);
+
 				futureResults.add(futureResult);
 			}
 			int i = 0;

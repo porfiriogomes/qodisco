@@ -1,14 +1,23 @@
 package br.ufrn.dimap.consiste.utils;
 
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Future;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Repository;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
@@ -26,12 +35,15 @@ import com.hp.hpl.jena.update.UpdateFactory;
 import com.hp.hpl.jena.update.UpdateProcessor;
 import com.hp.hpl.jena.update.UpdateRequest;
 
+import br.ufrn.dimap.consiste.filter.FilterService;
 import br.ufrn.dimap.consiste.pubsub.PublisherService;
 import br.ufrn.dimap.consiste.topic.TopicEntity;
 import br.ufrn.dimap.consiste.topic.TopicService;
 
 @Repository
 public abstract class FusekiRepository {
+	
+	private static final Logger LOGGER = Logger.getLogger(FusekiRepository.class); 
 
 	@Autowired
 	private TopicService topicService;
@@ -71,6 +83,7 @@ public abstract class FusekiRepository {
 			UpdateAction.parseExecute(query, om);
 			
 			for (int i = 0; i < topics.size() ; i++) {
+				TopicEntity topic = topics.get(i);
 				try {
 					Query jenaQuery = QueryFactory.create(topics.get(i).getQuery());
 					QueryExecution qe = QueryExecutionFactory.create(jenaQuery, om);
@@ -79,7 +92,30 @@ public abstract class FusekiRepository {
 					
 					if (rs.hasNext()) {
 						String message = ResultSetFormatter.asXMLString(rs);
-						publisherService.sendMessage(topics.get(i), message);
+						LOGGER.info("Traitement des topics");
+						LOGGER.info(topic.getAsyncFilter());
+						if (topic.hasFilter()) {
+							LOGGER.info("Traitement des filtres");
+							DocumentBuilder parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+							Document document = parser.parse(new InputSource(new StringReader(message)));
+				            NodeList list = document.getElementsByTagName("binding");
+				            if (!FilterService.executeFilter(topic, list)) {
+				            	break;
+				            }
+				            for (int j = 0; j < list.getLength(); j++) {
+				        		Node n = list.item(j);
+				        		String attribut = n.getAttributes().getNamedItem("name").getNodeValue();
+				        		if (attribut.equals("date")){
+				        			topic.setLastQuerySendDate(Double.parseDouble(n.getChildNodes().item(1).getFirstChild().getNodeValue()));
+				        		}
+				        		if (attribut.equals("value")){
+				        			topic.setLastQuerySendValue(Double.parseDouble(n.getChildNodes().item(1).getFirstChild().getNodeValue()));
+				        		}
+				        	}
+				            
+						}
+						LOGGER.info(message);
+						publisherService.sendMessage(topic, message);
 					}					
 				} catch (Exception e) {
 				}				

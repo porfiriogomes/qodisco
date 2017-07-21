@@ -33,7 +33,7 @@ public class PublisherService {
 			connOpts.setCleanSession(true);
 			publisher.connect(connOpts);
 			
-			LOGGER.info("Publishing message");
+			LOGGER.info("Publishing Mqtt message");
 			MqttMessage message = new MqttMessage(messageContent.getBytes());
 			message.setQos(qos);
 			

@@ -1,5 +1,9 @@
 package br.ufrn.dimap.consiste.topic;
 
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -15,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import br.ufrn.dimap.consiste.domain.DomainEntity;
 import br.ufrn.dimap.consiste.user.UserEntity;
 import br.ufrn.dimap.consiste.utils.BaseEntity;
+import br.ufrn.dimap.consiste.filter.FilterEntity;
 
 @Entity
 @Table(name="tb_topic")
@@ -42,15 +47,30 @@ public class TopicEntity extends BaseEntity{
 	@NotNull
 	private UserEntity user;
 	
+	@Column
+	@ElementCollection(targetClass=FilterEntity.class)
+	private List<FilterEntity> asyncFilter;
+	
+	private double lastQuerySendDate;
+	
+	private double lastQuerySendValue;
+	
 	public TopicEntity() {}
 
-	public TopicEntity(String topic, String query, DomainEntity domain, String brokerAddress, UserEntity user) {
+	public TopicEntity(String topic, String query, DomainEntity domain, String brokerAddress, UserEntity user, List<FilterEntity> asyncFilter) {
 		super();
 		this.topic = topic;
 		this.query = query;
 		this.domain = domain;
 		this.brokerAddress = brokerAddress;
 		this.user = user;
+		this.lastQuerySendDate = 0;
+		this.lastQuerySendValue = 0;
+		this.asyncFilter = asyncFilter;
+	}
+	
+	public TopicEntity(String topic, String query, DomainEntity domain, String brokerAddress, UserEntity user) {
+		this(topic, query, domain, brokerAddress, user, null);
 	}
 
 	public String getTopic() {
@@ -96,4 +116,35 @@ public class TopicEntity extends BaseEntity{
 		this.user = user;
 	}
 	
+	public boolean hasFilter() {
+		boolean hasFilter = true;
+		if (this.asyncFilter==null || this.asyncFilter.isEmpty()) hasFilter=false;
+		return (hasFilter);
+	}
+	
+	public List<FilterEntity> getAsyncFilter() {
+		return this.asyncFilter;
+	}
+	
+	
+	public void setAsyncFilter(List<FilterEntity> asyncFilter) {
+		this.asyncFilter = asyncFilter;
+	}
+	
+	@JsonIgnore
+	public double getLastQuerySendDate() {
+		return this.lastQuerySendDate;
+	}
+	
+	public void setLastQuerySendDate(double date) {
+		this.lastQuerySendDate = date;
+	}
+	
+	public double getLastQuerySendValue() {
+		return this.lastQuerySendValue;
+	}
+	
+	public void setLastQuerySendValue(double value) {
+		this.lastQuerySendValue = value;
+	}
 }

@@ -101,6 +101,18 @@ public class APIController {
 		return new ResponseEntity<TopicEntity>(topic, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/async-search-filter", method=RequestMethod.GET)
+	public ResponseEntity<TopicEntity> asynchronousSearch(@RequestHeader("query") String query, @RequestHeader("filter") String filter, @RequestParam("domain") String domain) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		// Creating an unique topic name
+		String topicName = "qodisco"+auth.getName()+UUID.randomUUID();
+				
+		TopicEntity topic = apiService.asyncSearchFilter(query, filter, topicName, domain);
+		return new ResponseEntity<TopicEntity>(topic, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/async-search", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> ubsubscribe(@RequestParam("topic") String topic) {
 		return (apiService.unsubscribe(topic))

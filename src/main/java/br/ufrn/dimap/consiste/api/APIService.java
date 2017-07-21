@@ -17,6 +17,7 @@ import br.ufrn.dimap.consiste.domain.DomainEntity;
 import br.ufrn.dimap.consiste.domain.DomainService;
 import br.ufrn.dimap.consiste.repository.RepositoryEntity;
 import br.ufrn.dimap.consiste.repository.RepositoryService;
+import br.ufrn.dimap.consiste.sparql.SparqlService;
 import br.ufrn.dimap.consiste.topic.TopicEntity;
 import br.ufrn.dimap.consiste.topic.TopicService;
 import br.ufrn.dimap.consiste.user.UserEntity;
@@ -39,6 +40,9 @@ public class APIService {
 
 	@Autowired
 	private APIRepository apiRepository;
+	
+	@Autowired
+	private SparqlService sparqlService;
 	
 	@Autowired
 	private Environment environment;
@@ -151,6 +155,18 @@ public class APIService {
 		String brokerAddress = String.format("tcp://%s:%s", host, serverPort);
 		
 		DomainEntity domain = domainService.getDomainByName(domainName);
+		TopicEntity topic = new TopicEntity(topicName, query, domain, brokerAddress, userService.getLoggedUser());
+		topicService.saveTopic(topic);
+		return topic;
+	}
+	
+	public TopicEntity asyncSearchFilter(String query, String filter, String topicName, String domainName) {
+		String serverPort = environment.getProperty("broker.server_port");
+		String host = environment.getProperty("broker.host");
+		String brokerAddress = String.format("tcp://%s:%s", host, serverPort);
+		
+		DomainEntity domain = domainService.getDomainByName(domainName);
+		
 		TopicEntity topic = new TopicEntity(topicName, query, domain, brokerAddress, userService.getLoggedUser());
 		topicService.saveTopic(topic);
 		return topic;
