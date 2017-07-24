@@ -38,7 +38,7 @@ public class MultiHttpSecurityConfig extends WebSecurityConfigurerAdapter {
 			http
 				.antMatcher("/api/*")
 				.authorizeRequests()
-				.antMatchers("/api/rdo/**", "/api/repository/**", "/api/domain/**", "/api/sync-search/**", "/api/async-search/**").hasRole("USER")
+				.antMatchers("/api/rdo/**", "/api/repository/**", "/api/domain/**", "/api/sync-search/**", "/api/async-search/**", "/api/async-search-filter/**").hasRole("USER")
 				.and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()

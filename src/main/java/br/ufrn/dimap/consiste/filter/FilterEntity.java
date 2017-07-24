@@ -1,14 +1,12 @@
 package br.ufrn.dimap.consiste.filter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import br.ufrn.dimap.consiste.utils.BaseEntity;
 
 
 public class FilterEntity extends BaseEntity{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private String filterName;
 	

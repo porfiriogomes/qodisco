@@ -92,10 +92,7 @@ public abstract class FusekiRepository {
 					
 					if (rs.hasNext()) {
 						String message = ResultSetFormatter.asXMLString(rs);
-						LOGGER.info("Traitement des topics");
-						LOGGER.info(topic.getAsyncFilter());
 						if (topic.hasFilter()) {
-							LOGGER.info("Traitement des filtres");
 							DocumentBuilder parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 							Document document = parser.parse(new InputSource(new StringReader(message)));
 				            NodeList list = document.getElementsByTagName("binding");
@@ -106,10 +103,10 @@ public abstract class FusekiRepository {
 				        		Node n = list.item(j);
 				        		String attribut = n.getAttributes().getNamedItem("name").getNodeValue();
 				        		if (attribut.equals("date")){
-				        			topic.setLastQuerySendDate(Double.parseDouble(n.getChildNodes().item(1).getFirstChild().getNodeValue()));
+				        			topicService.updateLastDate(Double.parseDouble(n.getChildNodes().item(1).getFirstChild().getNodeValue()), topic.getTopic());
 				        		}
 				        		if (attribut.equals("value")){
-				        			topic.setLastQuerySendValue(Double.parseDouble(n.getChildNodes().item(1).getFirstChild().getNodeValue()));
+				        			topicService.updateLastValue(Double.parseDouble(n.getChildNodes().item(1).getFirstChild().getNodeValue()), topic.getTopic());
 				        		}
 				        	}
 				            

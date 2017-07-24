@@ -246,6 +246,6 @@ UNLOCK TABLES;
 --
 -- Creating user
 --
-CREATE USER IF NOT EXISTS `qodisco`@`localhost` IDENTIFIED BY 'qodisco' ;
+CREATE USER `qodisco`@`localhost` IDENTIFIED BY 'qodisco' ;
 GRANT ALL PRIVILEGES ON qodisco.* TO `qodisco`@`localhost`;
 FLUSH PRIVILEGES;

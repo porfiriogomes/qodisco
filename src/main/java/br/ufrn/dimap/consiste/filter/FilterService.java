@@ -33,6 +33,7 @@ public class FilterService {
         		Node n = list.item(i);
         		String attribut = n.getAttributes().getNamedItem("name").getNodeValue();
         		if (attribut.equals("date")){
+        			LOGGER.info("Freshness Filter " + n.getChildNodes().item(1).getFirstChild().getNodeValue() + " minus " + topic.getLastQuerySendDate());
         			return ((Double.parseDouble(n.getChildNodes().item(1).getFirstChild().getNodeValue()) - topic.getLastQuerySendDate()) > (Double) filter.getValue());
         		}
         	}
@@ -58,8 +59,8 @@ public class FilterService {
 	public static boolean executeFilter(TopicEntity topic, NodeList list) {
 		
 		List<FilterEntity> filterList = topic.getAsyncFilter();
-		boolean fresh = false;
-		boolean res = false;
+		boolean fresh = true;
+		boolean res = true;
 		
 		for (int i = 0; i < filterList.size(); i++) {
 			if (filterList.get(i).getFilterName().equals("resolution")) {

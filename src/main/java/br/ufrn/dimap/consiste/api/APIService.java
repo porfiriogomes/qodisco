@@ -15,6 +15,8 @@ import com.hp.hpl.jena.sparql.util.ResultSetUtils;
 
 import br.ufrn.dimap.consiste.domain.DomainEntity;
 import br.ufrn.dimap.consiste.domain.DomainService;
+import br.ufrn.dimap.consiste.filter.FilterEntity;
+import br.ufrn.dimap.consiste.filter.FilterService;
 import br.ufrn.dimap.consiste.repository.RepositoryEntity;
 import br.ufrn.dimap.consiste.repository.RepositoryService;
 import br.ufrn.dimap.consiste.sparql.SparqlService;
@@ -167,7 +169,9 @@ public class APIService {
 		
 		DomainEntity domain = domainService.getDomainByName(domainName);
 		
-		TopicEntity topic = new TopicEntity(topicName, query, domain, brokerAddress, userService.getLoggedUser());
+		List<FilterEntity> filters = FilterService.createFilter(filter);
+		
+		TopicEntity topic = new TopicEntity(topicName, query, domain, brokerAddress, userService.getLoggedUser(), filters);
 		topicService.saveTopic(topic);
 		return topic;
 	}
