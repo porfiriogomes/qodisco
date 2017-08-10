@@ -159,7 +159,6 @@ CREATE TABLE `tb_topic` (
   `query` longtext NOT NULL,
   `domain_name` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `async_filter` longtext,
   PRIMARY KEY (`topic`),
   KEY `FK716r376n7414xhi8cgjuetbj7` (`domain_name`),
   KEY `FK8shpfvcedp3aeyulrui83pjc0` (`user_id`),
@@ -180,7 +179,6 @@ UNLOCK TABLES;
 --
 -- Table structure for table `tb_user`
 --
-
 DROP TABLE IF EXISTS `tb_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;

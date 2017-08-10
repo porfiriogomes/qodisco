@@ -13,15 +13,5 @@ public interface TopicRepository extends JpaRepository<TopicEntity, String>{
 
 	@Query("SELECT t FROM TopicEntity t WHERE t.domain.name = ?1")
 	List<TopicEntity> findAllByDomain(String domainName);
-	
-	@Async
-	@Modifying(clearAutomatically=true)
-    @Query("UPDATE TopicEntity t SET t.lastQuerySendDate = ?2 WHERE t.topic= ?1 ")
-    void updateTopicLastDate(String topicId, double date);
-	
-	@Async
-	@Modifying(clearAutomatically=true)
-    @Query("UPDATE TopicEntity t SET t.lastQuerySendValue = ?2 WHERE t.topic= ?1 ")
-    void updateTopicLastValue(String topicId, double value);
 
 }

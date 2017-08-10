@@ -9,7 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -47,12 +49,13 @@ public class TopicEntity extends BaseEntity{
 	@NotNull
 	private UserEntity user;
 	
-	@Column
-	@ElementCollection(targetClass=FilterEntity.class)
+	@Transient
 	private List<FilterEntity> asyncFilter;
 	
+	@Column(updatable=true)
 	private double lastQuerySendDate;
 	
+	@Column(updatable=true)
 	private double lastQuerySendValue;
 	
 	public TopicEntity() {}
@@ -131,7 +134,6 @@ public class TopicEntity extends BaseEntity{
 		this.asyncFilter = asyncFilter;
 	}
 	
-	@JsonIgnore
 	public double getLastQuerySendDate() {
 		return this.lastQuerySendDate;
 	}

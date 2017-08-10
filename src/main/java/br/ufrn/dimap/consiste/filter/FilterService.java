@@ -6,14 +6,19 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import br.ufrn.dimap.consiste.topic.TopicEntity;
+import br.ufrn.dimap.consiste.topic.TopicRepository;
 
+@Service
 public class FilterService {
 
 	private static final Logger LOGGER = Logger.getLogger(FilterService.class); 
+
 
 		
 	public static FilterEntity getFilterByName(String filterName, TopicEntity topic) {
