@@ -19,7 +19,21 @@ public class FilterService {
 
 	private static final Logger LOGGER = Logger.getLogger(FilterService.class); 
 
+	@Autowired
+	public FilterRepository filterRepository;
 
+	public void saveFilter(FilterEntity filter) {
+		filterRepository.save(filter);
+	}
+	
+	public boolean removeFilter(String filterId) {
+		FilterEntity filterEntity = filterRepository.findOne(filterId);
+		if (filterEntity != null){
+			filterRepository.delete(filterId);
+			return true;
+		}
+		return false;
+	}
 		
 	public static FilterEntity getFilterByName(String filterName, TopicEntity topic) {
 		for(int i = 0; i < topic.getAsyncFilter().size(); i++) {
@@ -78,7 +92,7 @@ public class FilterService {
 		return (fresh && res);
 	}
 
-	public static List<FilterEntity> createFilter(String filters){
+	public List<FilterEntity> createFilter(String filters){
 		List<FilterEntity> list = new ArrayList<FilterEntity>();
 	
 		JSONArray json = new JSONArray(filters);
@@ -91,6 +105,7 @@ public class FilterService {
 			}
 			FilterEntity filter = new FilterEntity(j.getString("name"), j.getDouble("value"));
 			list.add(filter);
+			this.saveFilter(filter);
 		}	
 		return list;
 	}

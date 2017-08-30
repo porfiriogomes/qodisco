@@ -39,6 +39,9 @@ public class APIService {
 	
 	@Autowired
 	private TopicService topicService;
+	
+	@Autowired
+	private FilterService filterService;
 
 	@Autowired
 	private APIRepository apiRepository;
@@ -169,9 +172,10 @@ public class APIService {
 		
 		DomainEntity domain = domainService.getDomainByName(domainName);
 		
-		List<FilterEntity> filters = FilterService.createFilter(filter);
+		List<FilterEntity> filters = filterService.createFilter(filter);
 		
 		TopicEntity topic = new TopicEntity(topicName, query, domain, brokerAddress, userService.getLoggedUser(), filters);
+
 		topicService.saveTopic(topic);
 		return topic;
 	}

@@ -1,5 +1,17 @@
 package br.ufrn.dimap.consiste.filter;
 
+import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import br.ufrn.dimap.consiste.topic.TopicEntity;
 import br.ufrn.dimap.consiste.utils.BaseEntity;
 
 /**
@@ -11,26 +23,40 @@ import br.ufrn.dimap.consiste.utils.BaseEntity;
  *
  */
 
+@Entity
+@Table(name="tb_filter")
 public class FilterEntity extends BaseEntity{
 	
 	private static final long serialVersionUID = 1L;
 	
 	
+	@Id
+	private String id;
+	
 	/**
 	 * String to represent the filter name.
 	 * Could be either "freshness" or "resolution".
 	 */
+	@Column
 	private String filterName;
 	
 	/**
 	 * The value of the filter.
 	 */
+	@Column
 	private double value;
+	
+	public FilterEntity() {}
 	
 	public FilterEntity(String filterName, double value) {
 		super();
+		this.id = "" + UUID.randomUUID();
 		this.filterName = filterName;
 		this.value = value;
+	}
+	
+	public String getId() {
+		return this.id;
 	}
 
 	public String getFilterName() {

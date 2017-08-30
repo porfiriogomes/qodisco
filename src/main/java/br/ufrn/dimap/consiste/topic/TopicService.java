@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.ufrn.dimap.consiste.filter.FilterService;
 import br.ufrn.dimap.consiste.utils.FusekiRepository;
 
 @Service
@@ -15,6 +16,7 @@ public class TopicService {
 
 	@Autowired
 	private TopicRepository topicRepository;
+	private FilterService filterService;
 	
 	public TopicEntity getTopicByName(String topicName) {
 		return topicRepository.findOne(topicName);
@@ -26,6 +28,12 @@ public class TopicService {
 	
 	public boolean removeTopic(String topicName) {
 		TopicEntity topicEntity = topicRepository.findOne(topicName);
+		if (topicEntity.hasFilter()) {
+			for (int i = 0; i<topicEntity.getAsyncFilter().size(); i++) {
+				filterService.removeFilter(topicEntity.getAsyncFilter().get(i).getId());
+			}
+			
+		}
 		if (topicEntity != null){
 			topicRepository.delete(topicName);
 			return true;
