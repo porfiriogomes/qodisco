@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import br.ufrn.dimap.consiste.topic.TopicEntity;
 import br.ufrn.dimap.consiste.utils.BaseEntity;
@@ -46,7 +47,9 @@ public class FilterEntity extends BaseEntity{
 	@Column
 	private double value;
 	
+	@ManyToOne
 	@JoinColumn
+	@NotNull
 	private String async_filter_topic;
 	
 	public FilterEntity() {}

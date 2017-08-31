@@ -177,6 +177,9 @@ public class APIService {
 		TopicEntity topic = new TopicEntity(topicName, query, domain, brokerAddress, userService.getLoggedUser(), filters);
 
 		topicService.saveTopic(topic);
+		for (int i = 0; i < filters.size(); i++) {
+			filterService.saveFilter(filters.get(i));
+		}
 		return topic;
 	}
 	

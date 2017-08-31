@@ -101,7 +101,6 @@ public class FilterService {
 			}
 			FilterEntity filter = new FilterEntity(j.getString("name"), j.getDouble("value"), topicName);
 			list.add(filter);
-			this.saveFilter(filter);
 		}	
 		return list;
 	}
