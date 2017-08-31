@@ -49,7 +49,6 @@ public class TopicEntity extends BaseEntity{
 	private UserEntity user;
 	
 	@OneToMany
-	@JoinColumn
 	private List<FilterEntity> asyncFilter;
 	
 	@Column(updatable=true)

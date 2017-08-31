@@ -47,7 +47,6 @@ public class FilterEntity extends BaseEntity{
 	@Column
 	private double value;
 	
-	@ManyToOne
 	@JoinColumn
 	@NotNull
 	private String async_filter_topic;

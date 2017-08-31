@@ -112,16 +112,12 @@ CREATE TABLE IF NOT EXISTS `tb_topic` (
   PRIMARY KEY (`topic`),
   KEY `fk_tb_topic_tb_domain1` (`domain_name`),
   KEY `fk_tb_topic_tb_user1` (`user_id`),
-  KEY `fk_tb_topic_tb_filter1` (`async_filter`),	
   CONSTRAINT `fk_tb_topic_tb_domain1`
     FOREIGN KEY (`domain_name`)
     REFERENCES `tb_domain` (`name`),
   CONSTRAINT `fk_tb_topic_tb_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `tb_user` (`id`),
-  CONSTRAINT `fk_tb_topic_tb_filter1`
-    FOREIGN KEY (`async_filter`)
-    REFERENCES `tb_filter` (`id`))
+    REFERENCES `tb_user` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
