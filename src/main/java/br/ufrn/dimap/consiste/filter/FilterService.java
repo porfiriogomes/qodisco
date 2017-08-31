@@ -26,13 +26,9 @@ public class FilterService {
 		filterRepository.save(filter);
 	}
 	
-	public boolean removeFilter(String filterId) {
-		FilterEntity filterEntity = filterRepository.findOne(filterId);
-		if (filterEntity != null){
-			filterRepository.delete(filterId);
-			return true;
-		}
-		return false;
+	public void removeFilter(String topicName) {
+		filterRepository.deleteByTopicName(topicName);
+	
 	}
 		
 	public static FilterEntity getFilterByName(String filterName, TopicEntity topic) {
@@ -92,7 +88,7 @@ public class FilterService {
 		return (fresh && res);
 	}
 
-	public List<FilterEntity> createFilter(String filters){
+	public List<FilterEntity> createFilter(String filters, String topicName){
 		List<FilterEntity> list = new ArrayList<FilterEntity>();
 	
 		JSONArray json = new JSONArray(filters);
@@ -103,7 +99,7 @@ public class FilterService {
 				LOGGER.error("Unkown filter");
 				break;
 			}
-			FilterEntity filter = new FilterEntity(j.getString("name"), j.getDouble("value"));
+			FilterEntity filter = new FilterEntity(j.getString("name"), j.getDouble("value"), topicName);
 			list.add(filter);
 			this.saveFilter(filter);
 		}	

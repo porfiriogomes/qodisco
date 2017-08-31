@@ -46,13 +46,17 @@ public class FilterEntity extends BaseEntity{
 	@Column
 	private double value;
 	
+	@JoinColumn
+	private String async_filter_topic;
+	
 	public FilterEntity() {}
 	
-	public FilterEntity(String filterName, double value) {
+	public FilterEntity(String filterName, double value, String topicName) {
 		super();
 		this.id = "" + UUID.randomUUID();
 		this.filterName = filterName;
 		this.value = value;
+		this.async_filter_topic = topicName;
 	}
 	
 	public String getId() {
@@ -73,6 +77,10 @@ public class FilterEntity extends BaseEntity{
 
 	public void setValue(double value) {
 		this.value = value;
+	}
+	
+	public String getTopicName() {
+		return this.async_filter_topic;
 	}
 
 }

@@ -97,7 +97,7 @@ public abstract class FusekiRepository {
 							Document document = parser.parse(new InputSource(new StringReader(message)));
 				            NodeList list = document.getElementsByTagName("binding");
 				            if (!FilterService.executeFilter(topic, list)) {
-				            	break;
+				            	continue;
 				            }
 				            for (int j = 0; j < list.getLength(); j++) {
 				        		Node n = list.item(j);

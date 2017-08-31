@@ -10,7 +10,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema qodisco
 -- -----------------------------------------------------
-DROP DATABASE IF EXISTS `qodisco` ;
+-- DROP DATABASE IF EXISTS `qodisco` ;
 
 -- -----------------------------------------------------
 -- Schema qodisco2
@@ -135,7 +135,12 @@ CREATE TABLE IF NOT EXISTS `tb_filter` (
   `id` VARCHAR(255) NOT NULL,
   `filter_name` VARCHAR(255) NULL,
   `value` DOUBLE NULL,
-  PRIMARY KEY (`id`))
+  `async_filter_topic` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tb_filter_tb_topic1` (`async_filter_topic`),
+  CONSTRAINT `fk_tb_filter_tb_topic1`
+    FOREIGN KEY (`async_filter_topic`)
+    REFERENCES `tb_topic` (`topic`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 

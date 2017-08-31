@@ -172,7 +172,7 @@ public class APIService {
 		
 		DomainEntity domain = domainService.getDomainByName(domainName);
 		
-		List<FilterEntity> filters = filterService.createFilter(filter);
+		List<FilterEntity> filters = filterService.createFilter(filter, topicName);
 		
 		TopicEntity topic = new TopicEntity(topicName, query, domain, brokerAddress, userService.getLoggedUser(), filters);
 
