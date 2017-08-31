@@ -48,8 +48,8 @@ public class TopicEntity extends BaseEntity{
 	@NotNull
 	private UserEntity user;
 	
-	@OneToMany
-	private List<FilterEntity> asyncFilter;
+	@NotNull
+	private boolean asyncFilter;
 	
 	@Column(updatable=true)
 	private double lastQuerySendDate;
@@ -59,7 +59,7 @@ public class TopicEntity extends BaseEntity{
 	
 	public TopicEntity() {}
 
-	public TopicEntity(String topic, String query, DomainEntity domain, String brokerAddress, UserEntity user, List<FilterEntity> asyncFilter) {
+	public TopicEntity(String topic, String query, DomainEntity domain, String brokerAddress, UserEntity user, boolean asyncFilter) {
 		super();
 		this.topic = topic;
 		this.query = query;
@@ -72,7 +72,7 @@ public class TopicEntity extends BaseEntity{
 	}
 	
 	public TopicEntity(String topic, String query, DomainEntity domain, String brokerAddress, UserEntity user) {
-		this(topic, query, domain, brokerAddress, user, null);
+		this(topic, query, domain, brokerAddress, user, false);
 	}
 
 	public String getTopic() {
@@ -119,18 +119,7 @@ public class TopicEntity extends BaseEntity{
 	}
 	
 	public boolean hasFilter() {
-		boolean hasFilter = true;
-		if (this.asyncFilter==null || this.asyncFilter.isEmpty()) hasFilter=false;
-		return (hasFilter);
-	}
-	
-	public List<FilterEntity> getAsyncFilter() {
 		return this.asyncFilter;
-	}
-	
-	
-	public void setAsyncFilter(List<FilterEntity> asyncFilter) {
-		this.asyncFilter = asyncFilter;
 	}
 	
 	public double getLastQuerySendDate() {

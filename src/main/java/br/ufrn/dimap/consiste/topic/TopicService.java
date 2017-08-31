@@ -29,9 +29,8 @@ public class TopicService {
 	public boolean removeTopic(String topicName) {
 		TopicEntity topicEntity = topicRepository.findOne(topicName);
 		if (topicEntity.hasFilter()) {
-			for (int i = 0; i<topicEntity.getAsyncFilter().size(); i++) {
-				filterService.removeFilter(topicEntity.getAsyncFilter().get(i).getId());
-			}
+			filterService.removeFilter(topicEntity.getTopic());
+			
 			
 		}
 		if (topicEntity != null){

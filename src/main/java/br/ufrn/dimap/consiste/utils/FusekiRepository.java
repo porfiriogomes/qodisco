@@ -49,6 +49,9 @@ public abstract class FusekiRepository {
 	private TopicService topicService;
 	
 	@Autowired
+	private FilterService filterService;
+	
+	@Autowired
 	private PublisherService publisherService;
 	
 	protected List<String> getBasicUnits(){
@@ -96,7 +99,7 @@ public abstract class FusekiRepository {
 							DocumentBuilder parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 							Document document = parser.parse(new InputSource(new StringReader(message)));
 				            NodeList list = document.getElementsByTagName("binding");
-				            if (!FilterService.executeFilter(topic, list)) {
+				            if (!filterService.executeFilter(topic, list)) {
 				            	continue;
 				            }
 				            for (int j = 0; j < list.getLength(); j++) {

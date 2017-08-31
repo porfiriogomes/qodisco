@@ -31,10 +31,11 @@ public class FilterService {
 	
 	}
 		
-	public static FilterEntity getFilterByName(String filterName, TopicEntity topic) {
-		for(int i = 0; i < topic.getAsyncFilter().size(); i++) {
-			if (topic.getAsyncFilter().get(i).getFilterName().equals(filterName)) {
-				return topic.getAsyncFilter().get(i);
+	public FilterEntity getFilterByName(String filterName, TopicEntity topic) {
+		List<FilterEntity> filters = filterRepository.findAllByTopic(topic.getTopic());
+		for(int i = 0; i < filters.size(); i++) {
+			if (filters.get(i).getFilterName().equals(filterName)) {
+				return filters.get(i);
 			}
 		}
 		return null;
@@ -71,9 +72,9 @@ public class FilterService {
 		
 	}
 	
-	public static boolean executeFilter(TopicEntity topic, NodeList list) {
+	public boolean executeFilter(TopicEntity topic, NodeList list) {
 		
-		List<FilterEntity> filterList = topic.getAsyncFilter();
+		List<FilterEntity> filterList = filterRepository.findAllByTopic(topic.getTopic());
 		boolean fresh = true;
 		boolean res = true;
 		

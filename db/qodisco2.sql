@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `tb_topic` (
   `query` LONGTEXT NOT NULL,
   `domain_name` VARCHAR(255) NOT NULL,
   `user_id` INT(11) NOT NULL,
-  `async_filter` VARCHAR(255) NULL,
+  `async_filter`BOOLEAN NOT NULL,
   `last_query_send_date` DOUBLE NOT NULL,
   `last_query_send_value` DOUBLE NOT NULL,
   PRIMARY KEY (`topic`),
