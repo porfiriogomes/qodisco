@@ -27,8 +27,10 @@ public class FilterService {
 	}
 	
 	public void removeFilter(String topicName) {
-		filterRepository.deleteByTopicName(topicName);
-	
+		List<FilterEntity> filters = filterRepository.findAllByTopic(topicName);
+		for(int i = 0; i < filters.size(); i++) {
+			filterRepository.delete(filters.get(i));
+		}
 	}
 		
 	public FilterEntity getFilterByName(String filterName, TopicEntity topic) {

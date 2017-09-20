@@ -16,6 +16,8 @@ public class TopicService {
 
 	@Autowired
 	private TopicRepository topicRepository;
+	
+	@Autowired
 	private FilterService filterService;
 	
 	public TopicEntity getTopicByName(String topicName) {
@@ -29,9 +31,7 @@ public class TopicService {
 	public boolean removeTopic(String topicName) {
 		TopicEntity topicEntity = topicRepository.findOne(topicName);
 		if (topicEntity.hasFilter()) {
-			filterService.removeFilter(topicEntity.getTopic());
-			
-			
+			filterService.removeFilter(topicName);
 		}
 		if (topicEntity != null){
 			topicRepository.delete(topicName);
